@@ -1,0 +1,39 @@
+NAME="dnsperf"
+VERSION=2.1.0.0
+RELEASE=1
+CATEGORY="Net"
+SUMMARY="DNS benchmarking tools"
+DESCRIPTION="DNSPerf and ResPerf are free tools developed by Nominum that make
+it simple to gather accurate latency and throughput metrics for DNS. These
+tools are easy-to-use and simulate typical Internet so network operators can
+benchmark their naming and addressing infrastructure and plan for upgrades."
+HOMEPAGE="http://nominum.com/measurement-tools/"
+SRC_URI="
+	ftp://ftp.nominum.com/pub/nominum/dnsperf/${VERSION}/dnsperf-src-${VERSION}-1.tar.gz
+	http://pkgs.fedoraproject.org/repo/pkgs/dnsperf/queryfile-example-current.gz/851024fb2d6320ae126b0dcc4f5bb578/queryfile-example-current.gz
+"
+SRC_DIR="dnsperf-src-${VERSION}-1"
+
+REQUIRES="gnuplot"
+
+CFLAGS+=" -DFD_SETSIZE=16384"
+LDFLAGS+=" -Wl,--stack,0x400000"
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	lndirs
+	cd ${B}
+	cygconf
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	insinto /usr/share/${NAME}
+	doins ${S}/../queryfile-example-current
+}
+
+DOCS="RELEASE_NOTES"
