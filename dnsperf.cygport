@@ -1,6 +1,6 @@
 NAME="dnsperf"
 VERSION=2.1.0.0
-RELEASE=2
+RELEASE=3
 CATEGORY="Net"
 SUMMARY="DNS benchmarking tools"
 DESCRIPTION="DNSPerf and ResPerf are free tools developed by Nominum that make
